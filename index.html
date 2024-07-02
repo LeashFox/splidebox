@@ -1,0 +1,172 @@
+<!-- ---------- Dependencies ---------- -->
+
+<!-- Alpine Js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+<!--  Splide (Lightweight Carousel library)  -->
+<!--https://splidejs.com/-->
+
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
+<!--Tailwind CSS-->
+<!--https://tailwindcss.com/docs/installation-->
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<!--------- Parent Wrapper --------->
+<section x-data="product()" x-init="getProductInformation()">
+
+
+        <!--------- Product Wrapper --------->
+        <section class="flex items-center justify-center gap-4">
+
+            <!--------- For loop to render products --------->
+            <template x-for="product in Alpine.store('products')">
+
+                <!--------- Image --------->
+                <div @click="openLightbox(product.lightbox_images)" class="relative my-8">
+                    <img class="w-[250px] w-[250px] m-auto object-cover"
+                         :src="product.preview_image"
+                         :alt="product.title"
+                         src="https://placehold.co/300x300"
+                         alt="Product Image"/>
+
+                    <svg class="fa-solid fa-expand w-[32px] h-[32px]
+                                z-10 absolute bottom-2 right-2 text-xl"
+                         style="fill: #54565A"
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 448 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z"/>
+                    </svg>
+
+                </div>
+
+            </template>
+
+
+        </section>
+
+
+
+
+    <!--------- Splide Lightbox --------->
+    <section x-show="lightboxOpen" x-cloak x-transition
+             @keydown.window.escape="closeLightbox()"
+             class="fixed w-full h-full top-0 left-0 p-4 bg-brand-lightbox z-40">
+
+        <section class="lightbox splide w-full h-full relative" aria-label="Product Image Lightbox">
+
+        <span id="close-lightbox" @click="closeLightbox()"
+              class="absolute z-50 top-4 right-4
+                     cursor-pointer rounded-full
+                     bg-[#ccc] w-[42px] h-[42px] opacity-[.7] hover:opacity-[.9]
+                     flex items-center justify-center
+        ">
+            <svg class="text-black w-[28px] h-[28px]"
+                 xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 384 512">
+                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+            </svg>
+
+        </span>
+
+            <div class="splide__track h-full">
+                <ul class="splide__list">
+
+                    <!--
+                    * For loop that will render the images when you trigger the @click event
+                    -->
+                    <template x-for="image in Alpine.store('productLightboxImages')">
+                        <li class="splide__slide">
+                            <img class="w-[50%] h-full m-auto object-contain"
+                                 :src="image"
+                                 alt="Product Image"
+                                 src="https://placehold.co/300x300"/>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </section>
+    </section>
+
+</section>
+
+<!-- _______________________________________________ -->
+
+<!-- ---------- On-page JavaScript ---------- -->
+
+<script type="text/javascript">
+
+    document.addEventListener( 'alpine:init', () => {
+        Alpine.data('product', () => ({
+            lightboxOpen: false,
+            lightboxImages: [],
+            image: null,
+
+            getProductInformation() {
+                let products = [
+                    {
+                        id: 1,
+                        title: 'Product 1',
+                        sku: 'SKU',
+                        link: '/product/product-1',
+                        preview_image: 'https://placehold.co/300x300',
+                        lightbox_images: [
+                            'https://placehold.co/500x500',
+                            'https://placehold.co/300x400',
+                            'https://placehold.co/250x600',
+                        ]
+                    },
+                    {
+                        id: 2,
+                        title: 'Product 2',
+                        sku: 'SKU',
+                        link: '/product/product-2',
+                        preview_image: 'https://placehold.co/300x300',
+                        lightbox_images: [
+                            'https://placehold.co/300x400',
+                            'https://placehold.co/500x500',
+                            'https://placehold.co/250x600',
+                        ]
+                    },
+                ]
+
+                Alpine.store('products', products)
+            },
+
+            openLightbox(productLightboxImages) {
+                this.lightboxImages = productLightboxImages;
+
+                Alpine.store('productLightboxImages', productLightboxImages)
+
+                // Init Splide
+                this.$nextTick(() => {
+
+                    if (this.splide) {
+                        this.splide.destroy();
+                    }
+
+                    this.splide = new Splide('.lightbox', {
+                        type: 'loop',
+                        perPage: 1,
+                    }).mount();
+
+                });
+
+                this.lightboxOpen = true;
+            },
+
+            closeLightbox() {
+                this.lightboxOpen = false;
+                this.splide.destroy();
+                Alpine.store('productLightboxImages', [])
+            },
+
+        }));
+    });
+
+</script>
