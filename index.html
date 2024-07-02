@@ -1,22 +1,21 @@
-<!-- ---------- Dependencies ---------- -->
-
-<!-- Alpine Js -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-<!--  Splide (Lightweight Carousel library)  -->
-<!--https://splidejs.com/-->
-
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-
-<!--Tailwind CSS-->
-<!--https://tailwindcss.com/docs/installation-->
-<script src="https://cdn.tailwindcss.com"></script>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splidebox</title>
+    <!-- Alpine Js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Splide (Lightweight Carousel library) -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
 
 <!--------- Parent Wrapper --------->
 <section x-data="product()" x-init="getProductInformation()">
-
 
     <!--------- Product Wrapper --------->
     <section class="flex items-center justify-center gap-4">
@@ -89,7 +88,7 @@
 
         </span>
 
-            <div class="splide__track">
+            <div class="splide__track h-full">
 
                 <ul class="splide__list w-full">
 
@@ -111,6 +110,8 @@
     </section>
 
 </section>
+
+</body>
 
 <!-- ---------- On-page JavaScript ---------- -->
 
