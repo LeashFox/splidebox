@@ -28,9 +28,8 @@ Either:
 ## Supported options:
 
 ***Currently, these options are supported:***
-- splideboxContainerId: **string** = defaults to 'splidebox-container',
-- openButtonId: **string** = defaults to "open-button",
-- closeButtonId: **string** = defaults to "close-button",
+- openButtonSelector: **string** = defaults to "open-splidebox",
+- closeButtonSelector: **string** = defaults to "close-splidebox",
 - images: **array** = defaults to empty array,
 - splideOptions: **object** = can be used to pass in splide options (https://splidejs.com/guides/options/)
 
@@ -39,11 +38,18 @@ You'll need to instantiate the class when building a Splidebox.
 ****An example snippet:****
 
 ```
- const splideBox = new Splidebox.default({
-    splideboxContainerId: [Enter the ID of the element where you'd like the lightbox to render],
-    openButtonId: [Enter the ID of the open button / element to trigger the open],
-    closeButtonId: [Enter the ID of the close button]
-    images: [Either write the image URL's in here, or pass in an array]
+const lightboxWrapper = document.getElementById('lightbox-wrapper');
+
+let imageArray = [
+    'https://placehold.co/300x300',
+    'https://placehold.co/350x350',
+    'https://placehold.co/400x400',
+]
+
+lightboxWrapper.Splidebox({
+    openButtonSelector: '#product_image',
+    closeButtonSelector: '#new_close_button',
+    images: imageArray,
     splideOptions: {
         type: 'loop',
         pagination: 'false',        

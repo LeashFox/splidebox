@@ -17,7 +17,8 @@
 
 <section class="flex flex-col items-center justify-center gap-4">
 
-    <div class="relative cursor-pointer" id="image">
+    <div id="image"
+         class="relative cursor-pointer">
         <img class="w-[250px] w-[250px] m-auto object-cover"
              src="https://placehold.co/300x300"
              alt="Product Image"/>
@@ -41,16 +42,20 @@
 
     document.addEventListener('DOMContentLoaded', () => {
 
-        const splideBox = new Splidebox.default({
-            splideboxContainerId: 'splidebox-container',
-            openButtonId: 'image',
+        const lightboxWrapper = document.getElementById('splidebox-container');
+
+        lightboxWrapper.Splidebox({
+            openButtonSelector: '#image',
+            splideboxLabel: 'LeashFox',
             images: [
                 'https://placehold.co/500x500',
                 'https://placehold.co/400x400',
                 'https://placehold.co/350x350',
             ],
+            splideOptions: {
+                type: 'loop',
+            }
         })
-
 
     });
 

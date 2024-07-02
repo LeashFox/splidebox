@@ -1,6 +1,6 @@
 {
   "name": "splidebox",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A JavaScript class for creating a lightbox with Splide carousel.",
   "main": "dist/js/splidebox.min.js",
   "scripts": {
