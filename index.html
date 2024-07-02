@@ -15,7 +15,7 @@
 
 
 <!--------- Parent Wrapper --------->
-<section x-data="product()" x-init="getProductInformation()" class="relative">
+<section x-data="product()" x-init="getProductInformation()">
 
 
     <!--------- Product Wrapper --------->
@@ -73,14 +73,16 @@
         </span>
 
             <div class="splide__track">
-                <ul class="splide__list">
+
+                <ul class="splide__list w-full">
 
                     <!--
                     * For loop that will render the images when you trigger the @click event
                     -->
+
                     <template x-for="image in Alpine.store('productLightboxImages')">
                         <li class="splide__slide">
-                            <img class="w-[50%] h-full m-auto object-contain"
+                            <img class="w-[50%] h-full max-w-[650px] m-auto object-contain"
                                  :src="image"
                                  alt="Product Image"
                                  src="https://placehold.co/300x300"/>
@@ -113,8 +115,8 @@
                         preview_image: 'https://placehold.co/300x300',
                         lightbox_images: [
                             'https://placehold.co/500x500',
-                            'https://placehold.co/300x400',
-                            'https://placehold.co/250x400',
+                            'https://placehold.co/400x400',
+                            'https://placehold.co/350x350',
                         ]
                     },
                     {
@@ -124,9 +126,9 @@
                         link: '/product/product-2',
                         preview_image: 'https://placehold.co/300x300',
                         lightbox_images: [
-                            'https://placehold.co/300x400',
+                            'https://placehold.co/350x350',
+                            'https://placehold.co/400x400',
                             'https://placehold.co/500x500',
-                            'https://placehold.co/250x400',
                         ]
                     },
                 ]
@@ -147,7 +149,6 @@
                     }
 
                     this.splide = new Splide('.lightbox', {
-                        type: 'loop',
                         perPage: 1,
                     }).mount();
 
