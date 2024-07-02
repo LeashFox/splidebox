@@ -4,10 +4,10 @@ import Splide from '@splidejs/splide';
 class Splidebox {
     constructor(options = {}) {
         // Options
-        this.splideboxContainerId = options.splideboxContainerId || 'splidebox-container';
-        this.openButtonId = options.openButtonId;
-        this.closeButtonId = options.closeButtonId;
-        this.images = options.images || [];
+        this.splideboxContainerId = 'splidebox-container' || options.splideboxContainerId;
+        this.openButtonId = 'open-splidebox' || options.openButtonId;
+        this.closeButtonId = 'close-splidebox'|| options.closeButtonId;
+        this.images = [] || options.images;
 
         // Splide Options to parse
         this.splideOptions = options.splideOptions || {};
@@ -57,17 +57,14 @@ class Splidebox {
 
     attachEvents() {
 
-        if (this.openButtonId !== 'open-splidebox') {
-            const openButton = document.getElementById(this.openButtonId);
-            // Bind "openLightbox" to openButton
-            openButton.addEventListener('click', () => this.openLightbox(this.images) );
-        }
+        // Register open/close button based on default/provided values.
+        const openButton = document.getElementById(this.openButtonId);
+        const closeButton = document.getElementById(this.closeButtonId);
 
-        if (this.closeButtonId !== 'close-splidebox') {
-            const closeButton = document.getElementById(this.closeButtonId);
-            // Bind "closeLightbox()" to closeButton
-            closeButton.addEventListener('click', () => this.closeLightbox() );
-        }
+        // Bind "closeLightbox()" to closeButton
+        closeButton.addEventListener('click', () => this.closeLightbox() );
+        // Bind "openLightbox" to openButton
+        openButton.addEventListener('click', () => this.openLightbox(this.images) );
 
         // Allow "esc" key to close Lightbox
         document.addEventListener('keydown', (event) => {

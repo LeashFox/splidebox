@@ -1,15 +1,57 @@
-# splidebox
-A lightbox carousel built with Splide, Alpine Js, and Tailwind CSS.
+# Splidebox
+**A lightbox carousel built with Splide, DOMPurify, and Tailwind CSS.**
 
-Dependencies: 
+**This project wouldn't be possible without the Naotoshi Fujita, the developer behind Splide. cure53, the developer behind DOMPurify, and Tailwind Labs, the developers behind Tailwind** 
+
+*Please note: this project is in **early stages**. I am building a native JavaScript class that will allow you to specify which elements to turn into a lightbox and parse various options.*
+
+*This means there's a high probability for some janky code while I work on features and eventually refactor it.*
+
+*Any contributions or feedback is welcome.*
+
+## Installation:
+
+There's a couple of ways that you can install it.
+
+Either: 
+- Download, clone, or fork this repo and use the splidebox.js under src/js
+ 
+
+- run ```npm install splidebox``` and use either the ```src/js/splidebox.js``` or ```dist/js/splidebox.min.js```
+
+
+## Dependencies (included in splidebox.min.js):
 - Splide (Lightweight Carousel library) - https://splidejs.com/
-- Apline Js (JavaScript Framework) - https://alpinejs.dev/
 - Tailwind CSS - https://tailwindcss.com/docs/installation
+- DOMPurify (for security when iterating through and rendering images)
 
-You can replace the FontAwesome SVG's with your FontAwesome script src, so you can render them using "i" tags.
+## Supported options:
 
-The splidebox can work with native JavaScript using click/touchdown events, as long as you parse in an array of image URL's and conditionally render the images under splide__track.
+***Currently, these options are supported:***
+- splideboxContainerId: **string** = defaults to 'splidebox-container',
+- openButtonId: **string** = defaults to "open-button",
+- closeButtonId: **string** = defaults to "close-button",
+- images: **array** = defaults to empty array,
+- splideOptions: **object** = can be used to pass in splide options (https://splidejs.com/guides/options/)
 
-I'm using a dummy product object, but feel free to replace with data relevant to you, or remove it entirely.
+You'll need to instantiate the class when building a Splidebox.
 
-example.html is configured with the relevant CDN's so you can preview the expected behaviour.
+****An example snippet:****
+
+```
+ const splideBox = new Splidebox.default({
+    splideboxContainerId: [Enter the ID of the element where you'd like the lightbox to render],
+    openButtonId: [Enter the ID of the open button / element to trigger the open],
+    closeButtonId: [Enter the ID of the close button]
+    images: [Either write the image URL's in here, or pass in an array]
+    splideOptions: {
+        type: 'loop',
+        pagination: 'false',        
+        // Any further options from Splide (https://splidejs.com/guides/options/)
+    }
+})
+```
+
+## Roadmap
+
+My aim is to make this project extensible. I'd like to make it as easy as native Splide, where all you need to do is provide an element class or ID, parse a few options, and have a fully working pre-built lightbox.
