@@ -1,10 +1,12 @@
+import DOMPurify from 'dompurify';
+import Splide from '@splidejs/splide';
+
 class Splidebox {
     constructor(options = {}) {
-
         // Options
-        this.splideboxContainerId = options.splideboxContainerId || '';
-        this.openButtonId = options.openButtonId || 'open-splidebox';
-        this.closeButtonId = options.closeButtonId || 'close-splidebox';
+        this.splideboxContainerId = options.splideboxContainerId || 'splidebox-container';
+        this.openButtonId = options.openButtonId;
+        this.closeButtonId = options.closeButtonId;
         this.images = options.images || [];
 
         // Splide Options to parse
@@ -55,15 +57,17 @@ class Splidebox {
 
     attachEvents() {
 
-        // Register open/close Buttons using provided/default ID
-        const closeButton = document.getElementById(this.closeButtonId);
-        const openButton = document.getElementById(this.openButtonId);
+        if (this.openButtonId !== 'open-splidebox') {
+            const openButton = document.getElementById(this.openButtonId);
+            // Bind "openLightbox" to openButton
+            openButton.addEventListener('click', () => this.openLightbox(this.images) );
+        }
 
-        // Bind "openLightbox" to openButton
-        openButton.addEventListener('click', () => this.openLightbox(this.images) );
-
-        // Bind "closeLightbox()" to closeButton
-        closeButton.addEventListener('click', () => this.closeLightbox() );
+        if (this.closeButtonId !== 'close-splidebox') {
+            const closeButton = document.getElementById(this.closeButtonId);
+            // Bind "closeLightbox()" to closeButton
+            closeButton.addEventListener('click', () => this.closeLightbox() );
+        }
 
         // Allow "esc" key to close Lightbox
         document.addEventListener('keydown', (event) => {
@@ -76,12 +80,11 @@ class Splidebox {
     }
 
     openLightbox() {
+        window.dispatchEvent(new Event('resize'));
+
         this.updateImages();
-
+        
         this.lightboxOpen = true;
-
-        console.log(this.splidebox)
-
         this.splidebox.classList.remove('hidden');
     }
 
@@ -96,16 +99,15 @@ class Splidebox {
     }
 
     updateImages() {
-        const splideList = document.getElementById('splide-list');
-
-        splideList.innerHTML = this.images.map(image => `
+        const sanitizedImages = this.images.map(image => DOMPurify.sanitize(image));
+        const imagesMarkup = sanitizedImages.map(image => `
             <li class="splide__slide">
-                <img class="w-[50%] h-full max-w-[650px] m-auto object-contain"
-                     src="${image}"
-                     alt="Product Image"
-                 />
+                <img class="w-[50%] h-full max-w-[650px] m-auto object-contain" src="${image}" alt="Product Image" />
             </li>
         `).join('');
+
+        const splideList = document.getElementById('splide-list');
+        splideList.innerHTML = imagesMarkup;
 
         this.initSplide();
     }
@@ -118,6 +120,7 @@ class Splidebox {
 
         this.splide = new Splide('.splidebox', {
             perPage: 1,
+            pagination: true,
             ...this.splideOptions,
         }).mount();
 

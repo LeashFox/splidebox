@@ -6,47 +6,53 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css"></>
+    <link rel="stylesheet"
+          href="node_modules/@splidejs/splide/dist/css/splide.min.css"/>
 
     <!-- Splidebox -->
-    <script src="dist/splidebox.min.js"></script>
-    <script src="node_modules/@splidejs/splide/dist/js/splide.js"></script>
+    <script src="dist/js/splidebox.min.js"></script>
 
 </head>
 <body>
 
-<div id="wrapper"></div>
-<button id="someButton">Button</button>
+<section class="flex flex-col items-center justify-center gap-4">
 
+    <div class="relative cursor-pointer" id="image">
+        <img class="w-[250px] w-[250px] m-auto object-cover"
+             src="https://placehold.co/300x300"
+             alt="Product Image"/>
+
+        <svg class="fa-solid fa-expand w-[32px] h-[32px]
+                    z-10 absolute bottom-2 right-2 text-xl"
+             style="fill: #54565A"
+             xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 448 512">
+            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z"/>
+        </svg>
+
+    </div>
+
+</section>
+
+<section id="splidebox-container"></section>
 
 <script type="text/javascript">
 
-  document.addEventListener('DOMContentLoaded', () => {
-    let images = [
-      'https://placehold.co/500x500',
-      'https://placehold.co/400x400',
-      'https://placehold.co/350x350'
-    ];
+    document.addEventListener('DOMContentLoaded', () => {
 
-    let splidebox = new Splidebox({
-        splideboxContainerId: 'wrapper',
-        openButtonId: 'someButton',
-        images: images,
-        splideOptions: {
-            type: 'loop',
-        }
-    });
+        const splideBox = new Splidebox.default({
+            splideboxContainerId: 'splidebox-container',
+            openButtonId: 'image',
+            images: [
+                'https://placehold.co/500x500',
+                'https://placehold.co/400x400',
+                'https://placehold.co/350x350',
+            ],
+        })
 
-    // Example of opening the lightbox with a different set of images
-    document.getElementById('someButton').addEventListener('click', () => {
-
-      splidebox.openLightbox([
-        'https://placehold.co/600x600',
-        'https://placehold.co/700x700'
-      ]);
 
     });
-  });
 
 </script>
 
