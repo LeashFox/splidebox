@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css"></>
+
+    <!-- Splidebox -->
+    <script src="dist/splidebox.min.js"></script>
+    <script src="node_modules/@splidejs/splide/dist/js/splide.js"></script>
+
+</head>
+<body>
+
+<div id="wrapper"></div>
+<button id="someButton">Button</button>
+
+
+<script type="text/javascript">
+
+  document.addEventListener('DOMContentLoaded', () => {
+    let images = [
+      'https://placehold.co/500x500',
+      'https://placehold.co/400x400',
+      'https://placehold.co/350x350'
+    ];
+
+    let splidebox = new Splidebox({
+        splideboxContainerId: 'wrapper',
+        openButtonId: 'someButton',
+        images: images,
+        splideOptions: {
+            type: 'loop',
+        }
+    });
+
+    // Example of opening the lightbox with a different set of images
+    document.getElementById('someButton').addEventListener('click', () => {
+
+      splidebox.openLightbox([
+        'https://placehold.co/600x600',
+        'https://placehold.co/700x700'
+      ]);
+
+    });
+  });
+
+</script>
+
+</body>
+</html>
