@@ -1,7 +1,8 @@
 # Splidebox
-**A lightbox carousel built with Splide, DOMPurify, and Tailwind CSS.**
 
-**This project wouldn't be possible without the Naotoshi Fujita, the developer behind Splide. cure53, the developer behind DOMPurify, and Tailwind Labs, the developers behind Tailwind** 
+**Splidebox is a lightweight JavaScript library for creating customisable image lightboxes using Splide.js. Easily integrate image galleries into your web applications with minimal setup. Supports responsive design and provides options for customizing open/close buttons, image sources, and more.**
+
+This project wouldn't be possible without the Naotoshi Fujita, the developer behind Splide. cure53, the developer behind DOMPurify, and Tailwind Labs, the developers behind Tailwind
 
 *Please note: this project is in **early stages**. I am building a native JavaScript class that will allow you to specify which elements to turn into a lightbox and parse various options.*
 
@@ -14,7 +15,7 @@
 There's a couple of ways that you can install it.
 
 Either: 
-- Download, clone, or fork this repo and use the splidebox.js under src/js
+- Download, clone, or fork this repo and use the splidebox.js under ```src/js``` or ```dist/js```
  
 
 - run ```npm install splidebox``` and use either the ```src/js/splidebox.js``` or ```dist/js/splidebox.min.js```

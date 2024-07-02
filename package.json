@@ -1,10 +1,10 @@
 {
   "name": "splidebox",
-  "version": "1.0.3",
-  "description": "A JavaScript class for creating a lightbox with Splide carousel.",
+  "version": "1.0.4",
+  "description": "Splidebox is a lightweight JavaScript library for creating customisable image lightboxes using Splide.js.",
   "main": "dist/js/splidebox.min.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,11 @@
     "lightbox",
     "gallery",
     "carousel"
+  ],
+  "files": [
+    "dist",
+    "src/css/",
+    "src/js/"
   ],
   "author": "Robert Boniface",
   "license": "MIT",
