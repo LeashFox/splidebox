@@ -4,11 +4,18 @@
 
 This project wouldn't be possible without the Naotoshi Fujita, the developer behind Splide. cure53, the developer behind DOMPurify, and Tailwind Labs, the developers behind Tailwind
 
-*Please note: this project is in **early stages**. I am building a native JavaScript class that will allow you to specify which elements to turn into a lightbox and parse various options.*
+### Notice from the developer
 
-*This means there's a high probability for some janky code while I work on features and eventually refactor it.*
+Please note: this project is in **early stages**. I am building a native JavaScript class that will allow you to specify which elements to turn into a lightbox and parse various options.
 
-*Any contributions or feedback is welcome.*
+This means there's a high probability for some janky code while I work on features and eventually refactor it.
+
+Any contributions or feedback is welcome.
+
+## Dependencies (included in splidebox.min.js):
+- Splide (Lightweight Carousel library) - https://splidejs.com/
+- Tailwind CSS - https://tailwindcss.com/docs/installation
+- DOMPurify (for security when iterating through and rendering images)
 
 ## Installation:
 
@@ -20,11 +27,6 @@ Either:
 
 - run ```npm install splidebox``` and use either the ```src/js/splidebox.js``` or ```dist/js/splidebox.min.js```
 
-
-## Dependencies (included in splidebox.min.js):
-- Splide (Lightweight Carousel library) - https://splidejs.com/
-- Tailwind CSS - https://tailwindcss.com/docs/installation
-- DOMPurify (for security when iterating through and rendering images)
 
 ## Supported options:
 

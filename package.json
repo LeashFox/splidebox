@@ -1,7 +1,9 @@
 {
   "name": "splidebox",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Splidebox is a lightweight JavaScript library for creating customisable image lightboxes using Splide.js.",
+  "author": "Robert Boniface",
+  "license": "MIT",
   "main": "dist/js/splidebox.min.js",
   "scripts": {
     "build": "webpack --mode production"
@@ -22,8 +24,6 @@
     "src/css/",
     "src/js/"
   ],
-  "author": "Robert Boniface",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/leashfox/splidebox/issues"
   },
