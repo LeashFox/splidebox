@@ -25,6 +25,8 @@ This project wouldn't be possible without:
 - **cure53**, the developer behind ```DOMPurify```
 - **Tailwind Labs**, the developers behind ```Tailwind```.
 
+Also, an honorary mention of **Gausarts**, the developer behind a Drupal extension that shares the same name ```Splidebox``` - (https://www.drupal.org/project/splidebox)
+
 Any contributions, suggestions, or feedback is welcome.
 
 ## Preview:
