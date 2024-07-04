@@ -2,9 +2,15 @@ import DOMPurify from 'dompurify';
 import Splide from '@splidejs/splide';
 
 class Splidebox {
-    constructor(container, options = {}) {
-        // Default Options
+    constructor(element, options = {}) {
+
+        // -------- Default Options -------- //
         const {
+            background = {
+                enable: true,
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            },
+            closeWithEscapeKey = true,
             openButtonSelector = 'open-splidebox',
             closeButtonSelector = 'close-splidebox',
             splideboxLabel = 'An image carousel',
@@ -12,31 +18,38 @@ class Splidebox {
             splideOptions = {}
         } = options;
 
+        // -------- Element Validation -------- //
 
-        if (typeof container === 'string') {
-            this.splideboxContainer = document.querySelector(container);
-        } else if (container instanceof HTMLElement) {
-            this.splideboxContainer = container;
+        if (typeof element === 'string') {
+            this.splideboxContainer = document.querySelector(element);
+        } else if (element instanceof HTMLElement) {
+            this.splideboxContainer = element;
         } else {
-            throw new Error("Invalid container. Must be a selector string or an HTMLElement.");
+            throw new Error("Invalid element. Must be a selector string or an HTMLElement.");
         }
 
         if (!this.splideboxContainer) {
-            throw new Error(`Container element not found with selector: ${container}`);
+            throw new Error(`Container element not found with selector: ${element}`);
         }
 
-        this.splideboxLabel = splideboxLabel;
+        // -------- Definitions -------- //
 
+        this.background = {
+            enable: background.enable !== undefined ? background.enable : true,
+            backgroundColor: background.backgroundColor || 'rgba(0, 0, 0, 0.7)',
+        };
+        this.closeWithEscapeKey = closeWithEscapeKey;
         this.openButtonSelector = openButtonSelector;
         this.closeButtonSelector = closeButtonSelector;
-
+        this.splideboxLabel = splideboxLabel;
         this.images = images;
         this.splideOptions = splideOptions;
-
         this.lightboxOpen = false;
 
         this.init();
     }
+
+    // -------- Methods -------- //
 
     init() {
         this.createMarkup();
@@ -50,7 +63,9 @@ class Splidebox {
         const splidebox = document.createElement('section');
         splidebox.id = 'splidebox';
         splidebox.classList.add('fixed', 'w-full', 'h-full', 'top-0', 'left-0', 'p-4', 'z-40', 'hidden');
-        splidebox.style.background = 'rgba(0, 0, 0, 0.7)';
+        if (this.background.enable === true) {
+            splidebox.style.background = this.background.backgroundColor;
+        }
 
         // Create the Splide wrapper
         const splideWrapper = document.createElement('section');
@@ -114,11 +129,24 @@ class Splidebox {
             closeButton.addEventListener('click', () => this.closeLightbox());
         }
 
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && this.lightboxOpen) {
-                this.closeLightbox();
-            }
-        });
+        if (this.closeWithEscapeKey) {
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && this.lightboxOpen) {
+                    this.closeLightbox();
+                }
+            });
+        }
+
+        this.initSplide();
+    }
+
+    updateImages() {
+        const splideList = document.getElementById('splide-list');
+        splideList.innerHTML = this.images.map(image => `
+            <li class="splide__slide">
+                <img class="w-[50%] h-full max-w-[650px] m-auto object-contain" src="${DOMPurify.sanitize(image)}" alt="Product Image" />
+            </li>
+        `).join('');
 
         this.initSplide();
     }
@@ -136,17 +164,6 @@ class Splidebox {
         if (this.splide) {
             this.splide.destroy();
         }
-    }
-
-    updateImages() {
-        const splideList = document.getElementById('splide-list');
-        splideList.innerHTML = this.images.map(image => `
-            <li class="splide__slide">
-                <img class="w-[50%] h-full max-w-[650px] m-auto object-contain" src="${DOMPurify.sanitize(image)}" alt="Product Image" />
-            </li>
-        `).join('');
-
-        this.initSplide();
     }
 
     initSplide() {

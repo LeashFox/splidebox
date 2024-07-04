@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
@@ -13,9 +13,9 @@
     <script src="dist/js/splidebox.min.js"></script>
 
 </head>
-<body>
+<body class="h-full">
 
-<section class="flex flex-col items-center justify-center gap-4">
+<section class="flex flex-col items-center justify-center gap-4 h-full">
 
     <div id="image"
          class="relative cursor-pointer">
@@ -46,7 +46,6 @@
 
         lightboxWrapper.Splidebox({
             openButtonSelector: '#image',
-            splideboxLabel: 'LeashFox',
             images: [
                 'https://placehold.co/500x500',
                 'https://placehold.co/400x400',
