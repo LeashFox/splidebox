@@ -45,7 +45,7 @@ There's a few of ways that you can install it.
 
 **Use the CDN from jsDeliver:**
 
-- **splidebox.js:** ```<script src=" https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>```
+- **splidebox.js:** ```<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>```
 - **splidebox.min.js:** ```<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>```
 
 **Download, clone, or fork this repo and use the splidebox.js under:**
