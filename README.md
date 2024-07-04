@@ -12,6 +12,7 @@
   <img alt="GitHub" src="https://img.shields.io/github/license/leashfox/splidebox">
   <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/splidebox">
   <img alt="npm" src="https://img.shields.io/npm/v/splidebox">
+    <a href="https://www.buymeacoffee.com/leashfox" target="_blank"><img src="https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee" alt="Buy Me A Coffee"></a>
 </p>
 
 
