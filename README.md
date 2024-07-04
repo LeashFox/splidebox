@@ -81,7 +81,7 @@ There's a few of ways that you can install it.
     - Array of image URLs to display in the carousel.
 
 - splideOptions: **(object**)
-    - Can be used to pass options to Splide.js (https://splidejs.com/guides/options/).
+    - Can be used to parse options from Splide.js (https://splidejs.com/guides/options/).
     - *Not all options have been tested. Please report any bugs encountered.*
 
 
@@ -90,6 +90,8 @@ There's a few of ways that you can install it.
 #### Splidebox will now automatically grab images from the attribute ```data-splidebox-images```
 
 If left blank, it'll use the images specified in the ```images``` option when initialising Splidebox.
+
+This allows for multiple uses of the same lightbox markup.
 
 ```html
 <div class="image cursor-pointer"
@@ -103,7 +105,7 @@ If left blank, it'll use the images specified in the ```images``` option when in
 
 ## Example:
 
-****You'll need to instantiate the class when building a Splidebox. It's best to do this after the DOM content has loaded:****
+You'll need to instantiate the class when building a Splidebox. It's best to do this after the DOM content has loaded:
 
 ```javascript
 
