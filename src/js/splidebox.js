@@ -3,23 +3,22 @@ import Splide from '@splidejs/splide';
 
 class Splidebox {
     constructor(element, options = {}) {
-
-        // -------- Default Options -------- //
+        // Default options and element validation
         const {
             background = {
                 enable: true,
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
             },
             closeWithEscapeKey = true,
-            openButtonSelector = 'open-splidebox',
-            closeButtonSelector = 'close-splidebox',
+            openButtonSelector = '.open-lightbox',
+            closeButtonSelector = '.close-splidebox',
             splideboxLabel = 'An image carousel',
             images = [],
             splideOptions = {}
         } = options;
 
-        // -------- Element Validation -------- //
-
+        
+        // Element validation
         if (typeof element === 'string') {
             this.splideboxContainer = document.querySelector(element);
         } else if (element instanceof HTMLElement) {
@@ -32,8 +31,7 @@ class Splidebox {
             throw new Error(`Container element not found with selector: ${element}`);
         }
 
-        // -------- Definitions -------- //
-
+        // Definitions
         this.background = {
             enable: background.enable !== undefined ? background.enable : true,
             backgroundColor: background.backgroundColor || 'rgba(0, 0, 0, 0.7)',
@@ -49,13 +47,13 @@ class Splidebox {
         this.init();
     }
 
-    // -------- Methods -------- //
-
+    // Initialize method
     init() {
         this.createMarkup();
         this.attachEvents();
     }
 
+    // Method to create lightbox markup
     createMarkup() {
         const sanitizedImages = this.images.map(image => DOMPurify.sanitize(image));
 
@@ -117,13 +115,35 @@ class Splidebox {
         this.splidebox = document.getElementById('splidebox');
     }
 
+    // Method to attach events
     attachEvents() {
-        const openButton = document.querySelector(this.openButtonSelector);
+        const openButtons = document.querySelectorAll(this.openButtonSelector);
         const closeButton = document.getElementById(this.closeButtonSelector);
 
-        if (openButton) {
-            openButton.addEventListener('click', () => this.openLightbox());
-        }
+        openButtons.forEach(openButton => {
+            openButton.addEventListener('click', () => {
+                let imagesToRender = [];
+
+                // Check if the clicked openButton or its closest ancestor has data-splidebox-images attribute
+                const closestWithDataAttr = openButton.closest('[data-splidebox-images]');
+
+                if (closestWithDataAttr) {
+                    // Use images from the closest element with data-splidebox-images attribute
+                    const imageData = closestWithDataAttr.getAttribute('data-splidebox-images');
+                    try {
+                        imagesToRender = JSON.parse(imageData);
+                    } catch (error) {
+                        console.error("Invalid JSON in data-splidebox-images attribute", error);
+                        imagesToRender = []; // Ensure imagesToRender is empty if parsing fails
+                    }
+                } else if (this.images.length > 0) {
+                    // No data-splidebox-images attribute found, use this.images if it's not empty
+                    imagesToRender = this.images;
+                }
+
+                this.openLightbox(imagesToRender);
+            });
+        });
 
         if (closeButton) {
             closeButton.addEventListener('click', () => this.closeLightbox());
@@ -140,9 +160,12 @@ class Splidebox {
         this.initSplide();
     }
 
-    updateImages() {
+
+    // Method to update images
+    updateImages(imagesToRender = this.images) {
         const splideList = document.getElementById('splide-list');
-        splideList.innerHTML = this.images.map(image => `
+        
+        splideList.innerHTML = imagesToRender.map(image => `
             <li class="splide__slide">
                 <img class="w-[50%] h-full max-w-[650px] m-auto object-contain" src="${DOMPurify.sanitize(image)}" alt="Product Image" />
             </li>
@@ -151,13 +174,27 @@ class Splidebox {
         this.initSplide();
     }
 
-    openLightbox() {
-        this.updateImages();
+    // Method to open lightbox
+    openLightbox(imagesToRender) {
+        if (imagesToRender && imagesToRender.length > 0) {
+            this.imagesToDisplay = imagesToRender; // Store images to display without overwriting this.images
+        } else if (this.imagesToDisplay && this.imagesToDisplay.length > 0) {
+            // Use stored imagesToDisplay if available
+            imagesToRender = this.imagesToDisplay;
+        } else {
+            // Fallback to this.images only if neither imagesToRender nor imagesToDisplay are set
+            imagesToRender = this.images;
+        }
 
+        // Update images in the lightbox (if necessary)
+        this.updateImages(imagesToRender);
+
+        // Set lightbox state to open
         this.lightboxOpen = true;
         this.splidebox.classList.remove('hidden');
     }
 
+    // Method to close lightbox
     closeLightbox() {
         this.lightboxOpen = false;
         this.splidebox.classList.add('hidden');
@@ -166,6 +203,7 @@ class Splidebox {
         }
     }
 
+    // Method to initialize Splide
     initSplide() {
         if (this.splide) {
             this.splide.destroy();
@@ -179,7 +217,6 @@ class Splidebox {
 
         // Fix pagination not showing
         window.dispatchEvent(new Event('resize'));
-
     }
 }
 

@@ -10,15 +10,31 @@
           href="node_modules/@splidejs/splide/dist/css/splide.min.css"/>
 
     <!-- Splidebox -->
-    <script src="dist/js/splidebox.min.js"></script>
+    <script src="dist/js/splidebox.js"></script>
 
 </head>
 <body class="h-full">
 
 <section class="flex flex-col items-center justify-center gap-4 h-full">
 
-    <div id="image"
-         class="relative cursor-pointer">
+    <div class="image relative cursor-pointer">
+        <img class="w-[250px] w-[250px] m-auto object-cover"
+             src="https://placehold.co/300x300"
+             alt="Product Image"/>
+
+        <svg class="fa-solid fa-expand w-[32px] h-[32px]
+                    z-10 absolute bottom-2 right-2 text-xl"
+             style="fill: #54565A"
+             xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 448 512">
+            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z"/>
+        </svg>
+
+    </div>
+
+    <div class="image relative cursor-pointer"
+         data-splidebox-images='["https://placehold.co/100x100","https://placehold.co/150x150","https://placehold.co/200x200"]'>
         <img class="w-[250px] w-[250px] m-auto object-cover"
              src="https://placehold.co/300x300"
              alt="Product Image"/>
@@ -44,13 +60,15 @@
 
         const lightboxWrapper = document.getElementById('splidebox-container');
 
+        let imageArray = [
+            'https://placehold.co/300x300',
+            'https://placehold.co/350x350',
+            'https://placehold.co/400x400',
+        ]
+
         lightboxWrapper.Splidebox({
-            openButtonSelector: '#image',
-            images: [
-                'https://placehold.co/500x500',
-                'https://placehold.co/400x400',
-                'https://placehold.co/350x350',
-            ],
+            openButtonSelector: '.image',
+            images: imageArray,
             splideOptions: {
                 type: 'loop',
             }

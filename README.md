@@ -43,53 +43,93 @@ Any contributions, suggestions, or feedback is welcome.
 
 There's a few of ways that you can install it.
 
-**Use the CDN from jsDeliver:**
+### Use the CDN from jsDeliver:
 
-- **splidebox.js:** ```<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>```
-- **splidebox.min.js:** ```<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>```
+**splidebox.js:**
+```html
+<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.js"></script>
+```
 
-**Download, clone, or fork this repo and use the splidebox.js under:**
+**splidebox.min.js:**
+```html
+<script src="https://cdn.jsdelivr.net/npm/splidebox/dist/js/splidebox.min.js"></script>
+```
+
+### Download, clone, or fork this repo and use the splidebox.js under:
 - ```src/js``` or ```dist/js```
 
-**run ```npm install splidebox``` and use either:**
-- ```src/js/splidebox.js``` or ```dist/js/splidebox.min.js```
+### run ```npm install splidebox``` and use either:
+```src/js/splidebox.js```, ```dist/js/splidebox.js``` or ```dist/js/splidebox.min.js```
 
-## Supported options:
-- background: **object** == defaults to: {enable: true (**boolean**), backgroundColor: 'rgba(0, 0, 0, 0.7)' (**string**) }
-- closeWithEscapeKey: **boolean** = defaults to "true",
-- openButtonSelector: **string** = defaults to "open-splidebox",
-- closeButtonSelector: **string** = defaults to "close-splidebox",
-- splideboxLabel: **string** = defaults to "An image carousel." This is used to determine the aria-label attribute for the Splide carousel.
-- images: **array** = defaults to empty array,
-- splideOptions: **object** = can be used to pass in splide options (https://splidejs.com/guides/options/) - *Not all of them have been tested. If you encounter any bugs, please report them to me.*
+
+## Supported Options
+
+- background: **(object**)
+    - enable: **(boolean**) (default: `true`)
+    - backgroundColor: **(string**) (default: `'rgba(0, 0, 0, 0.7)'`)
+
+- closeWithEscapeKey: **(boolean**) (default: `true`)
+
+- openButtonSelector: **(string**) (default: `'open-splidebox'`)
+
+- closeButtonSelector: **(string**) (default: `'close-splidebox'`)
+
+- splideboxLabel: **(string**) (default: `'An image carousel.'`)
+    - Used to set the `aria-label` attribute for the Splide carousel.
+
+- images: **(array**) (default: `[]`)
+    - Array of image URLs to display in the carousel.
+
+- splideOptions: **(object**)
+    - Can be used to pass options to Splide.js (https://splidejs.com/guides/options/).
+    - *Not all options have been tested. Please report any bugs encountered.*
+
+
+## New Features:
+
+#### Splidebox will now automatically grab images from the attribute ```data-splidebox-images```
+
+If left blank, it'll use the images specified in the ```images``` option when initialising Splidebox.
+
+```html
+<div class="image cursor-pointer"
+     data-splidebox-images='["https://placehold.co/100x100","https://placehold.co/150x150","https://placehold.co/200x200"]'>
+     
+    <img class="w-[250px] w-[250px] m-auto object-cover"
+         src="https://placehold.co/300x300"
+         alt="Image"/>
+</div>
+```
 
 ## Example:
 
 ****You'll need to instantiate the class when building a Splidebox. It's best to do this after the DOM content has loaded:****
 
-```
+```javascript
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const lightboxWrapper = document.getElementById('lightbox-wrapper');
-    
+
     let imageArray = [
         'https://placehold.co/300x300',
         'https://placehold.co/350x350',
         'https://placehold.co/400x400',
     ]
-    
+
     lightboxWrapper.Splidebox({
-        background = {
+        background: {
+            enable: true, // You don't need to specify this.
             backgroundColor: 'rgba(0, 0, 0, 0.4)',
         },
         closeWithEscapeKey: false,
-        openButtonSelector: '#product_image',
+        openButtonSelector: '.image',
         closeButtonSelector: '#new_close_button',
         splideboxLabel: 'Product lightbox',
         images: imageArray,
         splideOptions: {
             type: 'loop',
-            pagination: 'false',        
+            pagination: 'false',
             // Any further options from Splide (https://splidejs.com/guides/options/)
         }
     })
