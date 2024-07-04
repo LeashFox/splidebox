@@ -26,7 +26,12 @@ Any contributions, suggestions, or feedback is welcome.
 
 ## Preview:
 
-![](https://github.com/LeashFox/splidebox/blob/master/preview.gif)
+<p dir="auto">
+    <img src="preview.gif" 
+         alt="Splidebox Preview" 
+         style="max-width: 100%;"
+    />
+</p>
 
 ## Dependencies:
 *Theses are compiled within **dist/js/splidebox.min.js**, or imported in **src/js/splidebox.js***
